@@ -15,3 +15,9 @@ Run the 'app' file with nodemon:
 ```
 nodemon app
 ```
+
+### Other dependencies
+
+```
+npm install express graphql express-graphql
+```
