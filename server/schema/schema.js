@@ -1,3 +1,13 @@
+const {
+    dummyBooks,
+    dummyAuthors
+} = require("../dummy-data/books-and-authors")
+
+const {
+    isBookOfThisAuthor,
+    orderBooksByPubYearAsc
+} = require("../utils/books-utils");
+
 const graphql = require("graphql");
 
 const {
@@ -5,24 +15,15 @@ const {
     GraphQLString,
     GraphQLInt,
     GraphQLSchema,
-    GraphQLID
+    GraphQLID,
+    GraphQLList
 } = graphql;
 
 //dummy data
+const books = dummyBooks;
+const authors = dummyAuthors;
 
-const books = [
-    {id: "1", title: "Fahrenheit 451", genre: "Dystopian", pubYear: 1953},
-    {id: "2", title: "The Metamorphosis", genre: "Modernist fiction", pubYear: 1915},
-    {id: "3", title: "Gulliver's Travels", genre: "Satire, fantasy", pubYear: 1726},
-    {id: "4", title: "The Martian Chronicles", genre: "Sci-Fi", pubYear: 1950},
-    {id: "5", title: "The Illustrated Man", genre: "Sci-Fi", pubYear: 1951}
-];
-
-const authors = [
-    {id: "1", name: "Ray Bradbury", years: "1920 - 2012", age: 91},
-    {id: "2", name: "Franz Kafka", years: "1883 - 1924", age: 40},
-    {id: "3", name: "Jonathan Swift", years: "1667 - 1745", age: 77}
-];
+// GraphQL types
 
 const BookType = new GraphQLObjectType({
     name: "Book",
@@ -30,7 +31,14 @@ const BookType = new GraphQLObjectType({
         id: {type: GraphQLID},
         title: {type: GraphQLString},
         genre: {type: GraphQLString},
-        pubYear: {type: GraphQLInt}
+        pubYear: {type: GraphQLInt},
+        author: {
+            type: AuthorType,
+            resolve(parentBook, args) {
+                console.log(parentBook);
+                return authors.find(author => author.id === parentBook.authorId);
+            }
+        }
     })
 });
 
@@ -40,9 +48,19 @@ const AuthorType = new GraphQLObjectType({
         id: {type: GraphQLID},
         name: {type: GraphQLString},
         years: {type: GraphQLString},
-        age: {type: GraphQLInt}
+        age: {type: GraphQLInt},
+        books: {
+            type: new GraphQLList(BookType),
+            resolve(parentAuthor, args) {
+                return books
+                    .filter(isBookOfThisAuthor(parentAuthor))
+                    .sort(orderBooksByPubYearAsc());
+            }
+        }
     })
 });
+
+// root queries
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
