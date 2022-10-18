@@ -70,7 +70,6 @@ const RootQuery = new GraphQLObjectType({
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
                 // get data from the source
-                console.log(`Getting a book with id=${args.id}`)
                 return books.find(book => book.id === args.id);
             }
         },
@@ -80,7 +79,6 @@ const RootQuery = new GraphQLObjectType({
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
                 // get data from the source
-                console.log(`Getting an author with id=${args.id}`)
                 return authors.find(author => author.id === args.id);
             }
         },
