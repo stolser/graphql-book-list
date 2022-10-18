@@ -11,9 +11,10 @@ Install nodemon globally:
 sudo npm install nodemon -g
 ```
 
-Run the 'app' file with nodemon:
+Run the 'app.js' file with nodemon (and load env variables from '.env' if needed):
 ```
-nodemon app
+nodemon app.js
+nodemon -r dotenv/config app.js
 ```
 
 ### Other dependencies
