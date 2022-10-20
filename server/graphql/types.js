@@ -6,19 +6,16 @@ const {
     GraphQLList
 } = require("graphql");
 
-//dummy data
+const {BookDbModel} = require("../model/book");
+const {AuthorDbModel} = require("../model/author");
+
+// dummy data from local files instead of MongoDB
 const {
     dummyBooks,
-    dummyAuthors
+    dummyAuthors,
+    dummyFindAuthorByBookId,
+    dummyFindAllBooksByAuthorId
 } = require("../dummy-data/books-and-authors");
-
-const books = dummyBooks;
-const authors = dummyAuthors;
-
-const {
-    isBookOfThisAuthor,
-    orderBooksByPubYearAsc
-} = require("../utils/books-utils");
 
 const BookGraphQlType = new GraphQLObjectType({
     name: "Book",
@@ -30,8 +27,7 @@ const BookGraphQlType = new GraphQLObjectType({
         author: {
             type: AuthorGraphQlType,
             resolve(parentBook, args) {
-                console.log(parentBook);
-                return authors.find(author => author.id === parentBook.authorId);
+                return AuthorDbModel.findById(parentBook.authorId);
             }
         }
     })
@@ -47,9 +43,9 @@ const AuthorGraphQlType = new GraphQLObjectType({
         books: {
             type: new GraphQLList(BookGraphQlType),
             resolve(parentAuthor, args) {
-                return books
-                    .filter(isBookOfThisAuthor(parentAuthor))
-                    .sort(orderBooksByPubYearAsc());
+                return BookDbModel.find({
+                    authorId: parentAuthor.id
+                });
             }
         }
     })

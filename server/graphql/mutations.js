@@ -3,6 +3,7 @@ const {
     GraphQLString,
     GraphQLInt,
     GraphQLID,
+    GraphQLNonNull
 } = require("graphql");
 
 const {
@@ -19,9 +20,9 @@ const GraphQLMutations = new GraphQLObjectType({
         addAuthor: {
             type: AuthorGraphQlType,
             args: {
-                name: {type: GraphQLString},
-                years: {type: GraphQLString},
-                age: {type: GraphQLInt}
+                name: {type: new GraphQLNonNull(GraphQLString)},
+                years: {type: new GraphQLNonNull(GraphQLString)},
+                age: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve(parent, args) {
                 let author = new AuthorDbModel({
@@ -36,10 +37,10 @@ const GraphQLMutations = new GraphQLObjectType({
         addBook: {
             type: BookGraphQlType,
             args: {
-                title: {type: GraphQLString},
-                genre: {type: GraphQLString},
-                pubYear: {type: GraphQLInt},
-                authorId: {type: GraphQLID}
+                title: {type: new GraphQLNonNull(GraphQLString)},
+                genre: {type: new GraphQLNonNull(GraphQLString)},
+                pubYear: {type: new GraphQLNonNull(GraphQLInt)},
+                authorId: {type: new GraphQLNonNull(GraphQLID)}
             },
             resolve(parent, args) {
                 let book = new BookDbModel({
