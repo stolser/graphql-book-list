@@ -1,3 +1,8 @@
+const {
+    isBookOfThisAuthor,
+    orderBooksByPubYearAsc
+} = require("../utils/books-utils");
+
 const dummyBooks = [
     {id: "1", title: "Fahrenheit 451", genre: "Dystopian", pubYear: 1953, authorId: "1"},
     {id: "2", title: "The Metamorphosis", genre: "Modernist fiction", pubYear: 1915, authorId: "2"},
@@ -28,7 +33,19 @@ const dummyAuthors = [
     {id: "5", name: "Joshua Bloch", years: "1961 - ", age: 61}
 ];
 
+function dummyFindAuthorByBookId(parentBook) {
+    return dummyAuthors.find(author => author.id === parentBook.authorId);
+}
+
+function dummyFindAllBooksByAuthorId(parentAuthor) {
+    return dummyBooks
+        .filter(isBookOfThisAuthor(parentAuthor))
+        .sort(orderBooksByPubYearAsc());
+}
+
 module.exports = {
     dummyBooks,
-    dummyAuthors
+    dummyAuthors,
+    dummyFindAuthorByBookId,
+    dummyFindAllBooksByAuthorId
 };

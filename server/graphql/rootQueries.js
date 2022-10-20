@@ -9,14 +9,8 @@ const {
     AuthorGraphQlType
 } = require("./types");
 
-//dummy data
-const {
-    dummyBooks,
-    dummyAuthors
-} = require("../dummy-data/books-and-authors");
-
-const books = dummyBooks;
-const authors = dummyAuthors;
+const {BookDbModel} = require("../model/book");
+const {AuthorDbModel} = require("../model/author");
 
 const GraphQLRootQueries = new GraphQLObjectType({
     name: "GraphQLRootQueries",
@@ -25,8 +19,7 @@ const GraphQLRootQueries = new GraphQLObjectType({
             type: BookGraphQlType,
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
-                // get data from the source
-                return books.find(book => book.id === args.id);
+                return BookDbModel.findById(args.id);
             }
         },
 
@@ -34,22 +27,21 @@ const GraphQLRootQueries = new GraphQLObjectType({
             type: AuthorGraphQlType,
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
-                // get data from the source
-                return authors.find(author => author.id === args.id);
+                return AuthorDbModel.findById(args.id);
             }
         },
 
         books: {
             type: new GraphQLList(BookGraphQlType),
             resolve(parent, args) {
-                return books;
+                return BookDbModel.find({});
             }
         },
 
         authors: {
             type: new GraphQLList(AuthorGraphQlType),
             resolve(parent, args) {
-                return authors;
+                return AuthorDbModel.find({});
             }
         }
     }
