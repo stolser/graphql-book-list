@@ -31,4 +31,4 @@ const dummyAuthors = [
 module.exports = {
     dummyBooks,
     dummyAuthors
-}
+};

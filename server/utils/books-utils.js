@@ -9,4 +9,4 @@ function orderBooksByPubYearAsc() {
 module.exports = {
     isBookOfThisAuthor,
     orderBooksByPubYearAsc
-}
+};
