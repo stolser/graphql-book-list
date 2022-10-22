@@ -12,6 +12,8 @@ const {
 const {BookDbModel} = require("../model/book");
 const {AuthorDbModel} = require("../model/author");
 
+const {sleep} = require("../utils/commons")
+
 const GraphQLRootQueries = new GraphQLObjectType({
     name: "GraphQLRootQueries",
     fields: {
@@ -33,7 +35,8 @@ const GraphQLRootQueries = new GraphQLObjectType({
 
         books: {
             type: new GraphQLList(BookGraphQlType),
-            resolve(parent, args) {
+            async resolve(parent, args) {
+                await sleep(2000);
                 return BookDbModel.find({});
             }
         },

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const {graphqlHTTP} = require("express-graphql");
 const {mongoose} = require("mongoose");
 const {graphQlSchema} = require("./graphql/schema");
@@ -14,10 +15,13 @@ mongoose.connection.once("open", () => {
     eventEmitter.emit(Events.ConnectedToMongoDB);
 });
 
+app.use(cors());
+
 app.use(graphQlPath, graphqlHTTP({
-    schema: graphQlSchema,
-    graphiql: true
-}));
+        schema: graphQlSchema,
+        graphiql: true
+    })
+);
 
 app.listen(graphQlPort, () => {
     eventEmitter.emit(Events.ServerStartedListeningOnPort, graphQlPort);
