@@ -1,28 +1,19 @@
 const express = require("express");
-const cors = require('cors');
-const {graphqlHTTP} = require("express-graphql");
-const {mongoose} = require("mongoose");
-const {graphQlSchema} = require("./graphql/schema");
 const {eventEmitter, Events} = require("./events");
+const {setUpGraphQlServer} = require("./server-setup/graphql-setup");
+const {setUpRestRouting, setUpStaticContent} = require("./server-setup/static-and-rest-setup");
+const {setUpGeneral} = require("./server-setup/general-setup");
+const {setUpMongoose} = require("./server-setup/mongoose-setup");
 
-const graphQlPort = 4000;
-const graphQlPath = '/graphql';
+const port = process.env.PORT;
 const app = express();
 
-mongoose.connect(process.env.MONGODB_CONN_URI);
-console.log(`Connecting to MongoDB with URI "${process.env.MONGODB_CONN_URI}"...`);
-mongoose.connection.once("open", () => {
-    eventEmitter.emit(Events.ConnectedToMongoDB);
-});
+setUpMongoose();
+setUpGeneral(app);
+setUpGraphQlServer(app);
+setUpStaticContent(app);
+setUpRestRouting(app);
 
-app.use(cors());
-
-app.use(graphQlPath, graphqlHTTP({
-        schema: graphQlSchema,
-        graphiql: true
-    })
-);
-
-app.listen(graphQlPort, () => {
-    eventEmitter.emit(Events.ServerStartedListeningOnPort, graphQlPort);
+app.listen(port, () => {
+    eventEmitter.emit(Events.ServerStartedListeningOnPort, port);
 });

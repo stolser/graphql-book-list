@@ -1,26 +1,12 @@
-import {gql, useQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 
-const getAllBooksQuery = gql`
-          query GetAllBooks {
-            books {
-              title
-              genre
-              pubYear
-              id
-              author {
-                name
-                years
-                age
-              }
-            }
-          }
-`;
+import {getAllBooksQuery} from "./queries/queries"
 
 function DisplayAllBooks() {
     const {loading, error, data} = useQuery(getAllBooksQuery);
 
     if (loading) return <p>Loading books...</p>;
-    if (error) return <p className="error">Error :(</p>;
+    if (error) return <p className="error">Error while loading looks!</p>;
 
     return data.books.map(({title, genre, pubYear, id, author}) => (
         <li id={id} key={id}>
