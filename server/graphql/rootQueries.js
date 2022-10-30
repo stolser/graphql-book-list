@@ -43,7 +43,8 @@ const GraphQLRootQueries = new GraphQLObjectType({
 
         authors: {
             type: new GraphQLList(AuthorGraphQlType),
-            resolve(parent, args) {
+            async resolve(parent, args) {
+                await sleep(2000);
                 return AuthorDbModel.find({});
             }
         }

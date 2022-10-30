@@ -1,6 +1,7 @@
 bin/
 .idea
 *.iml
+.env
 
 .terraform
 .terragrunt-cache
