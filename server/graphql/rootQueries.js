@@ -36,7 +36,7 @@ const GraphQLRootQueries = new GraphQLObjectType({
         books: {
             type: new GraphQLList(BookGraphQlType),
             async resolve(parent, args) {
-                await sleep(2000);
+                await sleep(1000);
                 return BookDbModel.find({});
             }
         },

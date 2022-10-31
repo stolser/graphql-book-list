@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/server"
     schedule:
       interval: "daily"        # "weekly"
       time: '04:00'
