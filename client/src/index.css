@@ -2,3 +2,8 @@ body {
   background: #eee;
   font-family: "Helvetica Neue", serif;
 }
+
+#book-list li h3 span {
+  font-size: small;
+  font-weight: 100;
+}

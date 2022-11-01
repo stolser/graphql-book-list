@@ -16,6 +16,25 @@ const getAllBooksQuery = gql`
           }
 `;
 
+const getBookByIdQuery = gql`
+          query GetBookById($id: ID!) {
+              book(id: $id) {
+                title
+                genre
+                pubYear
+                author {
+                  id
+                  name
+                  years
+                  books {
+                    title
+                    id
+                  }
+                }
+              }
+          }
+`;
+
 const getAllAuthorsQuery = gql`
           query GetAllAuthors {
             authors {
@@ -39,6 +58,7 @@ const createNewBookM = gql`
 
 export {
     getAllBooksQuery,
+    getBookByIdQuery,
     getAllAuthorsQuery,
     createNewBookM
 };
