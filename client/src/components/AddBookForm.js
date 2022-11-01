@@ -13,7 +13,7 @@ function DisplayAllAuthors() {
     ));
 }
 
-function AddBook() {
+function AddBookForm() {
     let titleInput;
     let genreInput;
     let pubYearInput;
@@ -69,4 +69,4 @@ function AddBook() {
     );
 }
 
-export default AddBook;
+export default AddBookForm;

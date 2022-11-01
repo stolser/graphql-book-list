@@ -1,7 +1,10 @@
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloProvider, InMemoryCache, makeVar} from "@apollo/client";
 
 import BookList from "./components/BookList";
-import AddBook from "./components/AddBook";
+import AddBookForm from "./components/AddBookForm";
+
+export const defaultBookId = "6351844f27b4734628d5f652";
+export const selectedBookId = makeVar(defaultBookId);
 
 const apolloClient = new ApolloClient({
     uri: "http://localhost:4000/graphql",
@@ -14,7 +17,8 @@ export default function App() {
             <div id="main">
                 <h1>A book list</h1>
                 <BookList/>
-                <AddBook/>
+                <h1>Add a new book</h1>
+                <AddBookForm/>
             </div>
         </ApolloProvider>
     );
