@@ -17,23 +17,26 @@ function BookDetails() {
 
     const {title, genre, pubYear, author} = data.book;
 
-    function ListBooksByThisAuthor() {
-        return author.books.map(({title, id}) => (
-            <p book-id={id} key={id}>{title}</p>
-        ));
+    function OtherBooksByThisAuthor() {
+        return (
+            <div className="other-books">
+                <p>All books by <span className="author-name">{author.name}</span>:</p>
+                <ul>
+                    {author.books.map(({title, id}) => (
+                        <li book-id={id} key={id}>{title}</li>
+                    ))}
+                </ul>
+            </div>
+        );
     }
 
     return (
-        <div id="book-details" book-id={currentBookId}>
-            <h1>Book details</h1>
+        <div book-id={currentBookId}>
             <h2>{title}</h2>
             <p>Genre: {genre}</p>
             <p>Publication year: {pubYear}</p>
             <p author-id={author.id}>Author: {author.name} ({author.years})</p>
-            <p>All books by {author.name}:</p>
-            <ul className="other-books">
-                <ListBooksByThisAuthor/>
-            </ul>
+            <OtherBooksByThisAuthor/>
         </div>
     );
 }

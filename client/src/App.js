@@ -17,7 +17,6 @@ export default function App() {
             <div id="main">
                 <h1>A book list</h1>
                 <BookList/>
-                <h1>Add a new book</h1>
                 <AddBookForm/>
             </div>
         </ApolloProvider>

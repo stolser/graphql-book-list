@@ -12,7 +12,7 @@ function DisplayAllBooks() {
     if (error) return <p className="error">Error while loading looks!</p>;
     if (!data || !data.books) return <p>There is no books!</p>;
 
-    return data.books.map(({title, genre, pubYear, id, author}) => (
+    return data.books.map(({title, id, author}) => (
         <li book-id={id} key={id} onClick={() => selectedBookId(id)}>
             <h3>{title} <span>(by {author.name})</span></h3>
         </li>
@@ -22,7 +22,9 @@ function DisplayAllBooks() {
 function BookList() {
     return (
         <div>
-            <BookDetails/>
+            <div id="book-details">
+                <BookDetails/>
+            </div>
             <ul id="book-list">
                 <DisplayAllBooks/>
             </ul>
