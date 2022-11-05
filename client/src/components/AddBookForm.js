@@ -40,32 +40,35 @@ function AddBookForm() {
     };
 
     return (
-        <form id="add-book" onSubmit={onSubmitCreateNewBook}>
-            <div className="field">
-                <label>Book title:</label>
-                <input type="text" ref={node => titleInput = node}/>
-            </div>
+        <div>
+            <form id="add-book" onSubmit={onSubmitCreateNewBook}>
+                <h1>Add a new book</h1>
+                <div className="field">
+                    <label>Book title:</label>
+                    <input type="text" ref={node => titleInput = node}/>
+                </div>
 
-            <div className="field">
-                <label>Genre:</label>
-                <input type="text" ref={node => genreInput = node}/>
-            </div>
+                <div className="field">
+                    <label>Genre:</label>
+                    <input type="text" ref={node => genreInput = node}/>
+                </div>
 
-            <div className="field">
-                <label>Publication year:</label>
-                <input type="text" ref={node => pubYearInput = node}/>
-            </div>
+                <div className="field">
+                    <label>Publication year:</label>
+                    <input type="text" ref={node => pubYearInput = node}/>
+                </div>
 
-            <div className="field">
-                <label>Author:</label>
-                <select ref={node => authorIdInput = node}>
-                    <option>Select author</option>
-                    <DisplayAllAuthors/>
-                </select>
-            </div>
+                <div className="field">
+                    <label>Author:</label>
+                    <select ref={node => authorIdInput = node}>
+                        <option>Select author</option>
+                        <DisplayAllAuthors/>
+                    </select>
+                </div>
 
-            <button type="submit">Add book</button>
-        </form>
+                <button type="submit">+</button>
+            </form>
+        </div>
     );
 }
 
