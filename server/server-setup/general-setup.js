@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require('cors');
+const {initialize} = require("./auth-setup");
 
 function setUpGeneral(app) {
+    app.use(initialize());
+
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
 
