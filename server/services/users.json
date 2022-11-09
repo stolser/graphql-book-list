@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "email": "user.aaa@mail.com",
+    "name": "User AAA",
+    "password": "$2b$10$v68gGzZIGU/kI8pTST3W6e2wus1RLLHjs..0.bQx5Ds2N9WPdjaW2",
+    "raw_password": "my%password123"
+  }
+]
