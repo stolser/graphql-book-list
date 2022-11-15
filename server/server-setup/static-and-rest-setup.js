@@ -3,12 +3,11 @@ const express = require("express");
 const {authorRouter} = require("../routers/authorRouter")
 const {usersRouter} = require("../routers/usersRouter")
 
-const publicDirectoryPath = path.join(__dirname, './public');
-
 function setUpStaticContent(app) {
+    const publicDirectoryPath = path.join(__dirname, '../public');
     app.use(express.static(publicDirectoryPath));
 
-    app.get("/:name", (req, res) => {
+    app.get("/hello/:name", (req, res) => {
         res.send(`Hello ${req.params.name}!`)
     });
 }
