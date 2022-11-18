@@ -4,7 +4,7 @@ const {setUpGraphQlServer} = require("./server-setup/graphql-setup");
 const {setUpRestRouting, setUpStaticContent} = require("./server-setup/static-and-rest-setup");
 const {setUpGeneral} = require("./server-setup/general-setup");
 const {setUpMongoose} = require("./server-setup/mongoose-setup");
-const {setUpSocketIo} = require("./server-setup/socketio-setup");
+const {setUpSocketIoForTrivia} = require("./trivia/trivia-socketio-setup");
 const {handleError} = require("./utils/error-handling");
 
 const app = express();
@@ -14,7 +14,7 @@ setUpMongoose();
 setUpGraphQlServer(app);
 setUpStaticContent(app);
 setUpRestRouting(app);
-setUpSocketIo(app);
+setUpSocketIoForTrivia(app);
 
 app.use(handleError);
 
